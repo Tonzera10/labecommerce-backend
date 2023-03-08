@@ -5,7 +5,7 @@ export type TUser = {
 }
 
 export type TProduct = {
-    ide: string,
+    id: string,
     name: string,
     price: number,
     category: string
