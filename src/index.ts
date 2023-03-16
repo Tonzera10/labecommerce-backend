@@ -34,10 +34,10 @@ app.get('/users/:id/purchases', (req: Request, res: Response)=>{
 
     const {id} = req.params
 
-    const idPurchase = purchase.find((user) => user.userId.toLowerCase() === id)
+    const result = purchase.find((user) => user.userId.toLowerCase() === id)
 
-    idPurchase ? 
-    res.status(200).send(idPurchase) :
+    result ? 
+    res.status(200).send(result) :
     res.status(404).send('Compra de usuário não encontrada')
 })
 
@@ -80,7 +80,7 @@ app.put('/users/:id', (req: Request, res: Response)=>{
         findUser.id = newId || findUser.id,
         findUser.email = newEmail || findUser.email,
         findUser.password = newPassword || findUser.password,
-        res.status(200).send('Usuário atualixado com sucesso')
+        res.status(200).send('Usuário atualizado com sucesso')
         ) :
         res.status(404).send('Usuário não encontrado')
 })
@@ -93,14 +93,14 @@ app.put('/products/:id', (req: Request, res: Response)=>{
     const newPrice = req.body.price
     const newCategory = req.body.category
 
-    const findProduct = products.find((user) => user.id === id)
+    const findProduct = products.find((product) => product.id === id)
 
     findProduct ? (
         findProduct.id = newId || findProduct.id,
         findProduct.name = newName || findProduct.name,
         findProduct.price = newPrice || findProduct.price,
         findProduct.category = newCategory || findProduct.category,
-        res.status(200).send('Usuário atualixado com sucesso')
+        res.status(200).send('Produto atualizado com sucesso')
         ) :
-        res.status(404).send('Usuário não encontrado')
+        res.status(404).send('Produto não encontrado')
 })
