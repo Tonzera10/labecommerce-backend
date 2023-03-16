@@ -16,66 +16,91 @@ app.get('/ping', (req: Request, res: Response)=>{
     res.status(200).send("Pong")
 })
 
-// exercício 2
-
 app.get('/users', (req: Request, res: Response)=>{
     res.status(200).send(users)
 })
+// exercício 1
 
-app.get('/products', (req: Request, res: Response)=>{
-    res.status(200).send(products)
-})
+app.get('/products/:id', (req: Request, res: Response)=>{
 
-app.get('/products/search', (req: Request, res: Response)=>{
-    const name = req.query.q as string
+    const {id} = req.params
 
-    const result = products.filter((product)=> {
-        return product.name.toLowerCase().includes(name.toLowerCase())
-    })
+    const result = products.find((product) => product.id === id)
 
     res.status(200).send(result)
 })
 
-// exercício 3
+app.get('/users/:id/purchases', (req: Request, res: Response)=>{
 
-app.post('/users', (req: Request, res: Response)=>{
-    const {id, email, password} = req.body
+    const {id} = req.params
 
-    const newUser: TUser = {
-        id,
-        email,
-        password
-    } 
+    const idPurchase = purchase.find((user) => user.userId.toLowerCase() === id)
 
-    users.push(newUser)
-
-    res.status(201).send("Usuário criadocom sucesso!")
+    idPurchase ? 
+    res.status(200).send(idPurchase) :
+    res.status(404).send('Compra de usuário não encontrada')
 })
-app.post('/products', (req: Request, res: Response)=>{
-    const {id, name, price, category} = req.body
 
-    const newProduct: TProduct = {
-        id,
-        name,
-        price,
-        category
-    }
+// Exercícios 2
 
-    products.push(newProduct)
+app.delete('/users/:id', (req: Request, res: Response)=>{
+    const {id} = req.params
 
-    res.status(201).send("Produto criado com sucesso!")
+    const userIndex = users.findIndex((user) => user.id.toLowerCase() === id)
+    
+    userIndex >= 0 ?
+    (users.splice(userIndex, 1),
+    res.status(200).send('Usuário apagado com sucesso')) :
+    res.status(404).send('Usuário não encontrado')
 })
-app.post('/purchase', (req: Request, res: Response)=>{
-    const {userId, productId, quantity, totalPrice} = req.body
 
-    const newPurchase: TPurchase = {
-        userId,
-        productId,
-        quantity,
-        totalPrice
-    } 
+app.delete('/products/:id', (req: Request, res: Response)=>{
+    const {id} = req.params
 
-    purchase.push(newPurchase)
+    const productIndex = products.findIndex((product) => product.id === id)
 
-    res.status(201).send("Compra efetuada com sucesso!")
+    productIndex >= 0 ?
+    (products.splice(productIndex, 1), 
+    res.status(200).send('Produto apagado com sucesso')) :
+    res.status(404).send('Produto não encontrado')
+})
+
+// Exercício 3
+
+app.put('/users/:id', (req: Request, res: Response)=>{
+    const {id} = req.params
+
+    const newId = req.body.id
+    const newEmail = req.body.email
+    const newPassword = req.body.password
+
+    const findUser = users.find((user) => user.id.toLowerCase() === id)
+
+    findUser ? (
+        findUser.id = newId || findUser.id,
+        findUser.email = newEmail || findUser.email,
+        findUser.password = newPassword || findUser.password,
+        res.status(200).send('Usuário atualixado com sucesso')
+        ) :
+        res.status(404).send('Usuário não encontrado')
+})
+
+app.put('/products/:id', (req: Request, res: Response)=>{
+    const {id} = req.params
+
+    const newId = req.body.id
+    const newName = req.body.name
+    const newPrice = req.body.price
+    const newCategory = req.body.category
+
+    const findProduct = products.find((user) => user.id === id)
+
+    findProduct ? (
+        findProduct.id = newId || findProduct.id,
+        findProduct.name = newName || findProduct.name,
+        findProduct.price = newPrice || findProduct.price,
+        findProduct.category = newCategory || findProduct.category,
+        res.status(200).send('Usuário atualixado com sucesso')
+        ) :
+        res.status(404).send('Usuário não encontrado')
 })
