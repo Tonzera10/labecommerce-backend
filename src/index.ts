@@ -36,7 +36,7 @@ app.get('/products/search', (req: Request, res: Response)=>{
     res.status(200).send(result)
 })
 
-// exercício 3
+// exercício 3 vamos de novo
 
 app.post('/users', (req: Request, res: Response)=>{
     const {id, email, password} = req.body
