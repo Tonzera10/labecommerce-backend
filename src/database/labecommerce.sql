@@ -11,6 +11,8 @@ VALUES
 ("Arthur", "arthur@gmail.com", "12345"),
 ("Kieffer", "kieffer@gmail.com", "54321");
 
+SELECT * FROM users;
+
 CREATE TABLE products(
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
     name TEXT NOT NULL,
@@ -26,3 +28,5 @@ VALUES
 ("04", "Camisa-Grêmio", 300, "Roupas"),
 ("05", "Bermuda-Grêmio", 150, "Roupas"),
 ("06", "Meias-Grêmio", 150, "Roupas");
+
+SELECT * FROM products;
