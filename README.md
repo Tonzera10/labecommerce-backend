@@ -22,7 +22,7 @@
 
 ## Demonstração
 [Link de Demonstração](https://documenter.getpostman.com/view/24823077/2s93RKzw5h)
-[Repositório do Projeto](https://documenter.getpostman.com/view/24823077/2s93RKzw5h)
+[Repositório do Projeto](https://github.com/Tonzera10/labecommerce-backend)
 
 
 ## Como rodar esse projeto?
