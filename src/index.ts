@@ -1,7 +1,5 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
-import { products, purchase, users } from "./database";
-import { CATEGORIA, TProduct, TPurchase, TUser } from "./types";
 import { db } from "./database/knex";
 
 const app = express();
