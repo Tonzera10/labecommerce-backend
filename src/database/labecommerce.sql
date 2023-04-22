@@ -3,15 +3,18 @@ DROP TABLE users;
 
 CREATE TABLE users(
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
+    name TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
-    password TEXT NOT NULL
+    password TEXT NOT NULL,
+    createdAt TEXT DEFAULT(DATETIME('now', 'localtime'))
 );
 
-INSERT INTO users(id, email, password)
+INSERT INTO users(id, name email, password)
 VALUES
-("u001", "tom@gmail.com", "gremio"),
-("u002", "arthur@gmail.com", "12345"),
-("u003", "kieffer@gmail.com", "54321");
+("u001", "Arthur", "arthur@gmail.com", "54321")
+("u002", "Ton", "tom@gmail.com", "gremio"),
+("u003", "Mel", "mel@gmail.com", "12345"),
+("u004", "Jeff", "jeff@gmail.com", "54321");
 
 SELECT * FROM users;
 
@@ -21,17 +24,14 @@ CREATE TABLE products(
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
     name TEXT NOT NULL,
     price REAL NOT NULL,
-    category TEXT NOT NULL
+    description TEXT NOT NULL,
+    imageUrl TEXT NOT NULL
 );
 
-INSERT INTO products(id, name, price, category)
+INSERT INTO products(id, name, price, description, imageUrl)
 VALUES
-("p001", "Bola", 150, "Acessórios"),
-("p002", "Luva", 300, "Acessórios"),
-("p003", "Chuteira_Nike", 450, "Calçados"),
-("p004", "Camisa_Grêmio", 300, "Roupas"),
-("p005", "Bermuda_Grêmio", 150, "Roupas"),
-("p006", "Meias_Grêmio", 100, "Roupas");
+("p015", "Xis Filé", 33, "Pão, filé, maionese, salada, grãos e batata palha", "https://pontoxis.com.br/online/wp-content/uploads/2017/11/2018-08-31-23.29.11.png");
+
 
 SELECT * FROM products;
 
@@ -42,13 +42,14 @@ SELECT * FROM users; -- retorna todos os usuários cadastrados
 
 SELECT * FROM products; -- retorna todos os produtos cadastrados
 
-SELECT * FROM products WHERE name = "Bola"; -- retorna o resultado baseado no termo de busca
+SELECT * FROM products WHERE name = "Xis Salada"; -- retorna o resultado baseado no termo de busca
 
-INSERT INTO users(id, email, password)
-VALUES("u004", "matheus@gmail.com", "12345"); -- insere o item mockado na tabela users
+INSERT INTO users(id, name, email, password)
+VALUES("u006", "Matheus", "matheus@gmail.com", "12345"); -- insere o item mockado na tabela users
 
-INSERT INTO products(id, name, price, category)
-VALUES("p007", "Braçadeira de capitão", 50, "Acessórios"); -- insere o item mockado na tabela products
+INSERT INTO products(id, name, price, description, imageUrl)
+VALUES
+("p015", "Xis Filé", 33, "Pão, filé, maionese, salada, grãos e batata palha", "https://pontoxis.com.br/online/wp-content/uploads/2017/11/2018-08-31-23.29.11.png"); -- insere o item mockado na tabela products
 
 -- Exercício 2
 
@@ -60,7 +61,7 @@ DELETE FROM products WHERE id = "p005"; -- delete a linha baseada no valor mocka
 
 UPDATE users SET password = "1158" WHERE id = "u002"; -- edite a linha baseada nos valores mockados
 
-UPDATE products SET name = "Pelota" WHERE id = "p001"; -- edite a linha baseada nos valores mockados
+UPDATE products SET name = "Hamburguer" WHERE id = "p001"; -- edite a linha baseada nos valores mockados
 
 -- Exercício 3
 
@@ -68,7 +69,7 @@ SELECT * FROM users ORDER BY email ASC; -- retorna o resultado ordenado pela col
 
 SELECT * FROM products ORDER BY price ASC LIMIT 4 OFFSET 0; --retorna o resultado ordenado pela coluna price em ordem crescente, limite o resultado em 4 iniciando pelo primeiro item
 
-SELECT * FROM products WHERE price > 100 AND price < 300 ORDER BY price ASC; -- mocke um intervalo de preços, por exemplo entre 100.00 e 300.00, retorna os produtos com preços dentro do intervalo mockado em ordem crescente.
+SELECT * FROM products WHERE price > 20 AND price < 30 ORDER BY price ASC; -- mocke um intervalo de preços, por exemplo entre 100.00 e 300.00, retorna os produtos com preços dentro do intervalo mockado em ordem crescente.
 
 --Aula Relações sql 1
 -- exercício 1
@@ -77,24 +78,20 @@ DROP TABLE purchases;
 CREATE TABLE purchases (
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
     total_price REAL NOT NULL,
-    paid INTEGER NOT NULL,
-    delivered_at TEXT DEFAULT(DATETIME('now', 'localtime')),
+    paid INTEGER DEFAULT(0) NOT NULL,
+    created_at TEXT DEFAULT(DATETIME('now', 'localtime')),
     buyer_id TEXT NOT NULL,
     FOREIGN KEY (buyer_id) REFERENCES users(id)
 );
 
 -- exercíco  2
 
-INSERT INTO purchases (id, total_price, paid, buyer_id)
+INSERT INTO purchases (id, total_price, buyer_id)
 VALUES
-("c001", 300, 0, "u002"), --compra de 2 bolas
-("c002", 300, 0, "u003"), -- compra de 1 luva
-("c003", 300, 0, "u001"), -- comprou 1 camisa 
-("c004", 600, 0, "u004"), -- comprou 2 camisa
-("c005", 100, 0, "u002"), -- comprou 1 meia
-("c006", 450, 0, "u003"); -- comprou 3 bermudas
-
-UPDATE purchases SET delivered_at = DATETIME('now', 'localtime') WHERE purchases.id = "1";
+("pur001", 54, "u002"), -- 1 xis salada, 1 xis coração e 1 refri
+("pur002", 47, "u003"), -- 1 torrada especial e 1 bauru
+("pur003", 36, "u001"), -- 1 cachorro quente e um xis frango
+("pur004", 59, "u004"), -- 2 xis bacon e um refri
 
 SELECT * FROM purchases;
 
@@ -120,12 +117,12 @@ DROP TABLE purchases_products;
 
 INSERT INTO purchases_products (purchases_id, products_id, quantity)
 VALUES
-('c001', 'p001', 2),
-('c002', 'p002', 1),
-('c003', 'p004', 1),
-('c004', 'p004', 2),
-('c005', 'p006', 1),
-('c006', 'p005', 3);
+('pur001', 'p001', 2),
+('pur002', 'p002', 1),
+('pur003', 'p004', 1),
+('pur004', 'p004', 2),
+('pur005', 'p006', 1),
+('pur006', 'p005', 3);
 
 SELECT * FROM purchases
 LEFT JOIN purchases_products

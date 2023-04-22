@@ -1,13 +1,13 @@
 # **Projeto Labecommerce**
 
-Esta é a Labecommerce, uma API criada como teste utilizando Express. Nela podemos encontrar, criar ou deletar novos usuários, produtos ou compras.
+É o primeiro projeto do back-end, onde praticamos toda a base de criação de uma API vinculada a um banco de dados real.
 
 ## Índice
 - <a href="#-funcionalidades">Funcionalidades do Projeto</a>
 - <a href="#-layout">Layout</a>
 - <a href="#-demonstracao">Demonstração</a>
 - <a href="#-rodar">Como rodar esse projeto?</a>
-- <a href="#-tecnologias-utilizadas">Tecnologias Utilizadas</a>
+- <a href="#-conteúdos abordados">Conteúdos abordados</a>
 - <a href="#-autor">Autor</a>
 - <a href="#-proximos-passos">Próximos passos</a>
 
@@ -18,7 +18,7 @@ Esta é a Labecommerce, uma API criada como teste utilizando Express. Nela podem
 - [x] Cadastrar usuários, produtos e compras
 
 ## 🖥️ Layout
-![Labecommerce](./src/assets/Captura%20de%20tela%202023-03-21%20192101.png)
+![Labecommerce](https://user-images.githubusercontent.com/29845719/214396608-ddcfd097-e615-44f9-acbe-f815f9abb83f.png)
 
 ## Demonstração
 [Link de Demonstração](https://documenter.getpostman.com/view/24823077/2s93RKzw5h)
@@ -30,11 +30,13 @@ Esta é a Labecommerce, uma API criada como teste utilizando Express. Nela podem
 
 
 
-## ⚒️ Tecnologias Utilizadas
+## ⚒️ Conteúdos abordados
 1. [Express](https://expressjs.com/pt-br/)
 2. [Typescript](https://www.typescriptlang.org/)
 3. [NodeJs](https://nodejs.org/en)
-4. [Integração de APIs](https://maplink.global/blog/o-que-e-api/)
+4. [SQL e SQLite](https://maplink.global/blog/o-que-e-api/)
+5. [Knex](https://maplink.global/blog/o-que-e-api/)
+6. [Postman](https://maplink.global/blog/o-que-e-api/)
 
 
 ## Autor
